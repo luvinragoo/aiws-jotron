@@ -12,4 +12,6 @@ add_executable(aiws
     src/CircleZone.cpp
     src/ZoneMap.cpp
     src/MapParser.cpp
+    src/Utils.cpp
+    src/RadarParser.cpp
 )

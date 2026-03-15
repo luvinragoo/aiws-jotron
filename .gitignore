@@ -1,4 +1,19 @@
+# Build artifacts
 build/
-GEMINI.md
-old_GEMINI.md
-notes.md
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Compiled binaries
+aiws
+*.o
+*.exe
+
+# Test data (generated or temporary)
+radar_data.txt
+*.log
+
