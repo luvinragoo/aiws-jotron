@@ -8,4 +8,7 @@ add_compile_options(-Wall -Wextra -Werror)
 
 add_executable(aiws
     src/main.cpp
+    src/RectangleZone.cpp
+    src/CircleZone.cpp
+    src/ZoneMap.cpp
 )
