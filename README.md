@@ -47,6 +47,10 @@ The assignment intentionally leaves some details open. These are the assumptions
 - **Windows line endings**: `\r\n` line endings in input are handled gracefully.
 - **Output**: Strictly follows the spec format. No output is produced for aircraft
   in normal airspace.
+- **Example output vs. geometry:** The example in section 3.4 lists FR664 as prohibited,
+  but the geometry places it outside the prohibited circle (distance ≈ 5.83 > radius 3).
+  Classification follows geometry. The application outputs `restricted` for this case.
+
 
 ---
 
