@@ -132,3 +132,60 @@ FR664 is in prohibited zone at (5,6)
 
 Only restricted and prohibited infringements are printed. Normal airspace produces
 no output.
+
+## Testing
+
+### Build
+
+```bash
+cd build && make && cd ..
+```
+
+### End-to-End Tests
+
+**Test 1 — Aircraft in normal airspace (silent)**
+```bash
+echo "XX001(50,50)" | ./build/aiws maps/example3.map
+```
+Expected: No output.
+
+---
+
+**Test 2 — Malformed radar token**
+```bash
+echo "BADTOKEN XX001(4,4)" | ./build/aiws maps/example3.map 2>/dev/null
+```
+Expected: `XX001 is in prohibited zone at (4,4)` — warning for `BADTOKEN` goes to stderr only, valid token is still processed.
+
+---
+
+**Test 3 — Empty radar line**
+```bash
+echo "" | ./build/aiws maps/example3.map
+```
+Expected: No output, no crash.
+
+---
+
+**Test 4 — Zone override (painter's algorithm)**
+
+Create `maps/example4.map`:
+```
+restricted rectangle - (0,0) (10,10)
+prohibited circle - (5,5) 3
+normal rectangle - (0,6) (10,8)
+```
+```bash
+echo "AA001(3,7)" | ./build/aiws maps/example4.map
+```
+Expected: No output — `normal` zone overrides the `restricted` zone beneath it.
+
+---
+
+**Test 5 — Missing map file**
+```bash
+./build/aiws maps/nonexistent.map || echo "AIWS failed to start!"
+```
+Expected: Descriptive error message on stderr, followed by `AIWS failed to start!` — confirming the application exits with a non-zero code on a bad map file.
+
+
